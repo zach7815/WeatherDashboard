@@ -1,0 +1,131 @@
+body{
+    margin:0;
+    padding: 0;
+    height: 100vh;
+    background-image: url("https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bG9uZG9ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60");
+    background-repeat: no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* centre content with flex */
+
+.container, .searchInput, .weatherContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBarContainer{
+    width: 88%;
+}
+
+.container{
+    flex-direction: column;
+    justify-content: space-between;
+    gap:1rem;
+    
+}
+
+.searchBar{
+    display: flex;
+    margin: 1rem 0 0 0;
+    width: 90%;
+    
+}
+.searchBar, .searchButton{
+    height: 2.5rem;
+}
+
+.dayOfWeek{
+    display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   gap:1rem;
+   height: fit-content;
+   width: 100%;
+   padding: 0 1.5rem 0 1.5rem;
+position: relative;
+}
+
+
+
+
+.day{
+   align-self: flex-end;
+}
+
+.searchInput{
+    align-items: baseline;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+}
+
+.weatherContainer{
+    background-color: white;
+    opacity: 70%;
+    border-radius: 5px;
+    width: 80%; 
+    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    height: fit-content;
+    
+    
+}
+
+.dummyImage{
+    height: 15px;
+    width: 15px;
+    background-color: blueviolet;
+}
+
+.dayForecast{
+    display:flex;
+    flex-direction: row;
+    gap:2.5rem;
+    width: 100%;
+    align-items:center;
+    justify-content: space-around;
+    padding: 0 1.5rem 0 1.5rem;
+    position: relative;
+}
+.borderBottom{
+    position:absolute;
+    border-bottom: 1px solid black;
+    top:90%;
+    width: 90%;
+    text-align: center;
+    right: 1rem;
+}
+
+.buttonContainer{
+    display: flex;
+    gap:1rem;
+}
+
+.creditCaption{
+    width: fit-content;
+    padding: 0.5rem;
+    align-self: inherit;
+    position: relative;
+    
+}
+
+.creditCaption>*{
+    margin: 0.1rem;
+    align-self: flex-start;
+}
+
+
+.circle{
+    height: 1rem;
+    width: 1rem;
+    background-color: white;
+    border-radius: 80%;
+    cursor: pointer;
+}
