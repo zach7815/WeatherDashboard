@@ -1,10 +1,9 @@
 import React from "react";
 import SearchBar from "./components/SearchBar.jsx";
 import CurrentWeather from "./components/CurrentWeather.jsx";
-import FiveDayForecast from "./components/FiveDayWeather.jsx";
-import ButtonContainer from "./components/ButtonContainer.jsx";
-import "./styles.css"
 import CreditDetails from "./components/ImageCredit.jsx";
+import SwiperFunction from "./components/SwiperPagination.jsx";
+import "./styles.css"
 
 
 function App() {
@@ -12,8 +11,7 @@ function App() {
  <div className="container">
 <SearchBar />
 <CurrentWeather />
-<FiveDayForecast />
-<ButtonContainer />
+<SwiperFunction />
 <CreditDetails />
  </div>
   );
