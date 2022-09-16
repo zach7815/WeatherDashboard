@@ -23,7 +23,9 @@ const SwiperFunction = ()=>{
           >
             <SwiperSlide><FiveDayForecast /></SwiperSlide>
             <SwiperSlide><FiveDayForecast /></SwiperSlide>
-         
+            <SwiperSlide><FiveDayForecast /></SwiperSlide>
+            <SwiperSlide><FiveDayForecast /></SwiperSlide>
+            <SwiperSlide><FiveDayForecast /></SwiperSlide>
           </Swiper>
         </>
       );

@@ -2,12 +2,19 @@ body{
     margin:0;
     padding: 0;
     height: 100vh;
-    background-image: url("https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bG9uZG9ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60");
+    background-image: url("https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
     background-repeat: no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+    font-family: 'Roboto', sans-serif;
+    image-rendering: crisp-edges;
+ image-rendering: -moz-crisp-edges;          /* Firefox */
+ image-rendering: -o-crisp-edges;            /* Opera */
+ image-rendering: -webkit-optimize-contrast; /* Webkit (non-standard naming)*/
+ -ms-interpolation-mode: nearest-neighbor;   /* IE (non-standard property) */
+
 }
 
 /* centre content with flex */
@@ -75,7 +82,7 @@ position: relative;
     background-color: white;
     opacity: 70%;
     border-radius: 5px;
-    width: 80%; 
+    width: 87%; 
     padding: 1rem;
     flex-direction: column;
     align-items: center;
@@ -140,6 +147,7 @@ position: relative;
     width: 95%;
     height: 100%;
     padding: 0.2rem;
+    height:24rem;
   }
   
   .swiper-slide {
@@ -160,13 +168,16 @@ position: relative;
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+    position: relative;
+    bottom:1rem;
+
   }
   
   .swiper-slide img {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: 100%;
   }
   
   .swiper-pagination-bullet {
@@ -183,4 +194,126 @@ position: relative;
   .swiper-pagination-bullet-active {
     color: #fff;
     background: #007aff;
+  }
+
+
+  .currentDummy{
+
+    height: 50px;
+    width:50px
+  }
+
+  .currentTime{
+    display:none;
+  }
+
+  .buttonContainer{
+    display: none;
+  }
+
+  /* Iphone SE screenSizing */
+
+  @media screen and (max-width:375px) {
+    .currentWeather>* {
+        margin:0.25rem 0 0 0;
+    }
+    .container{
+        gap:0.75rem;
+    }
+    .swiper-slide{
+        font-size: 0.9rem;
+    }
+    .swiper{
+        height:21rem;
+    }
+    .currentDummy{
+        height: 30px;
+        width: 30px;
+    }
+  }
+
+  /* Start of Tablet Sizing */
+
+  @media screen and (min-width:800px) {
+   .currentWeather{
+    width:91%
+   }
+  }
+
+
+
+  @media screen and (min-width:810px) {
+    .container{
+        gap:2rem;  
+    }
+    .swiper{
+        width:90%
+        
+    }
+    .creditCaption{
+        padding:1rem;
+    }
+
+  }
+  @media screen and (min-width:1280px){
+    .container{
+        display:grid;
+        overflow: clip;
+        grid-template-columns: 20% 35% 32% 13%;
+        grid-template-rows: 5rem 20rem 4rem 25rem;
+
+    }
+    .searchBarContainer{
+        grid-area: 2/2/1/4;
+        justify-self: center;
+    }
+    .currentWeather{
+        grid-area:2/3/3/4
+    }
+    .swiper{
+        grid-area: 4/2/4/4;
+        width: 99%;
+    }
+    .creditCaption{
+        grid-area: 4/1/4/4;
+        align-self: flex-end;
+        margin-left: 2rem;
+    }
+
+    .currentTime{
+        display: flex;
+        grid-area: 2/2/2/3;
+    }
+    .currentTime, .currentWeather{
+        width:95%;
+        height:100%
+    }
+    .borderBottom{
+        width: 97%;
+    }
+
+    .buttonContainer{
+        display: flex;
+        grid-area: 3/2/3/4;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .buttonContainer button{
+        height: 70%;
+        padding:0.5rem;
+        background-color: #FFFFFF;
+        opacity: 77%;
+        border: none;
+        border-radius: 2px;
+        width:6rem;
+        cursor: pointer;
+    }
+    .buttonContainer button:hover{
+        opacity:100%
+    }
+    .buttonContainer button:active{
+        background-color: #8D8D8D;
+        color:white;
+    }
   }
