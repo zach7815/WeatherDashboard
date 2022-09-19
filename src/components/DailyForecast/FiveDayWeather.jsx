@@ -8,6 +8,7 @@ import {icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 const FiveDayForecast = ({day,dayData})=>{
 
     console.log(dayData)
+ 
 
 
     return (

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import TabNavItem from "./AllTabs/TabNavItem";
 import TabContent from "./AllTabs/TabContent";
 import "./tabs.css"
 import FiveDayForecast from "../DailyForecast/FiveDayWeather";
 import DummyData from "../DummyData";
-
 
 
 const day=[
@@ -19,7 +18,7 @@ const day=[
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState("tab1");
-
+  const [dummyData]=useState(DummyData);
   return (
     <>
         <ul className="nav">
@@ -62,7 +61,7 @@ const Tabs = () => {
       {day.map((dayInfo, index)=>{
         return(
         <TabContent className="tab"  key={dayInfo.id} id={dayInfo.tabId} activeTab={activeTab}>
-         <FiveDayForecast day={dayInfo.day} dayData={DummyData}  />
+         <FiveDayForecast day={dayInfo.day} dayData={dummyData}/>
         </TabContent>
         )
 
