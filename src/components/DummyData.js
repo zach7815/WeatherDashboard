@@ -1,157 +1,53 @@
 const DummyData =[
-    {
-        dayOne:{
-            times:{
-                timeOne: "08:00",
-                timeTwo:"12:00",
-                timeThree:"16:00",
-                timeFour:"20:00", 
-                timeFive:"24:00"
-            },
-           weatherIcons:{
-            Icon1:"dummyIcon1",
-            Icon2:"dummyIcon2",
-            Icon3:"dummyIcon3",
-            Icon4:"dummyIcon4", 
-            Icon5:"dummyIcon5"
-           },
-           temperature:{
-            temp1:"12ºc",
-            temp2:"11ºc",
-            temp3:"22ºc",
-            temp4:"22ºc",
-            temp5:"25ºc"
-           }, 
-           humidityLevel:{
-            humidity1:"80%",
-            humidity2:"80%",
-            humidity3:"80%",
-            humidity4:"80%",
-            humidity5:"80%",
-           }
+    
+        {
+            times:["08:00", "12:00","16:00","20:00","24:00"] 
+            ,
+            weatherIcons:["dummyIcon1", "dummyIcon2","dummyIcon3","dummyIcon4","dummyIcon5"] ,
+          
+            temperature:["12ºc", "14ºc","16ºc","13ºc","10ºc"] ,
+           
+            humidity:["60%", "40%","50%","50%","50%"] ,
         },
-        dayTwo:{
-            times:{
-                timeOne: "08:00",
-                timeTwo:"12:00",
-                timeThree:"16:00",
-                timeFour:"20:00", 
-                timeFive:"24:00"
-            },
-           weatherIcons:{
-            Icon1:"dummyIcon1",
-            Icon2:"dummyIcon2",
-            Icon3:"dummyIcon3",
-            Icon4:"dummyIcon4", 
-            Icon5:"dummyIcon5"
-           },
-           temperature:{
-            temp1:"12ºc",
-            temp2:"11ºc",
-            temp3:"22ºc",
-            temp4:"22ºc",
-            temp5:"25ºc"
-           }, 
-           humidityLevel:{
-            humidity1:"80%",
-            humidity2:"80%",
-            humidity3:"80%",
-            humidity4:"80%",
-            humidity5:"80%",
-           }
+        {
+            times:["08:00", "12:00","16:00","20:00","24:00"] 
+            ,
+            weatherIcons:["dummyIcon1", "dummyIcon2","dummyIcon3","dummyIcon4","dummyIcon5"] ,
+          
+            temperature:["12ºc", "14ºc","16ºc","13ºc","10ºc"] ,
+           
+            humidity:["60%", "40%","50%","50%","50%"] ,
         },
-        dayThree:{
-            times:{
-                timeOne: "08:00",
-                timeTwo:"12:00",
-                timeThree:"16:00",
-                timeFour:"20:00", 
-                timeFive:"24:00"
-            },
-           weatherIcons:{
-            Icon1:"dummyIcon1",
-            Icon2:"dummyIcon2",
-            Icon3:"dummyIcon3",
-            Icon4:"dummyIcon4", 
-            Icon5:"dummyIcon5"
-           },
-           temperature:{
-            temp1:"12ºc",
-            temp2:"11ºc",
-            temp3:"22ºc",
-            temp4:"22ºc",
-            temp5:"25ºc"
-           }, 
-           humidityLevel:{
-            humidity1:"80%",
-            humidity2:"80%",
-            humidity3:"80%",
-            humidity4:"80%",
-            humidity5:"80%",
-           }
-        }, 
-        dayFour:{
-            times:{
-                timeOne: "08:00",
-                timeTwo:"12:00",
-                timeThree:"16:00",
-                timeFour:"20:00", 
-                timeFive:"24:00"
-            },
-           weatherIcons:{
-            Icon1:"dummyIcon1",
-            Icon2:"dummyIcon2",
-            Icon3:"dummyIcon3",
-            Icon4:"dummyIcon4", 
-            Icon5:"dummyIcon5"
-           },
-           temperature:{
-            temp1:"12ºc",
-            temp2:"11ºc",
-            temp3:"22ºc",
-            temp4:"22ºc",
-            temp5:"25ºc"
-           }, 
-           humidityLevel:{
-            humidity1:"80%",
-            humidity2:"80%",
-            humidity3:"80%",
-            humidity4:"80%",
-            humidity5:"80%",
-           }
-        }, 
-        dayFive:{
-            times:{
-                timeOne: "08:00",
-                timeTwo:"12:00",
-                timeThree:"16:00",
-                timeFour:"20:00", 
-                timeFive:"24:00"
-            },
-           weatherIcons:{
-            Icon1:"dummyIcon1",
-            Icon2:"dummyIcon2",
-            Icon3:"dummyIcon3",
-            Icon4:"dummyIcon4", 
-            Icon5:"dummyIcon5"
-           },
-           temperature:{
-            temp1:"12ºc",
-            temp2:"11ºc",
-            temp3:"22ºc",
-            temp4:"22ºc",
-            temp5:"25ºc"
-           }, 
-           humidityLevel:{
-            humidity1:"80%",
-            humidity2:"80%",
-            humidity3:"80%",
-            humidity4:"80%",
-            humidity5:"80%",
-           }
-        }
-
-    },
+        {
+            times:["08:00", "12:00","16:00","20:00","24:00"] 
+            ,
+            weatherIcons:["dummyIcon1", "dummyIcon2","dummyIcon3","dummyIcon4","dummyIcon5"] ,
+          
+            temperature:["12ºc", "14ºc","16ºc","13ºc","10ºc"] ,
+           
+            humidity:["60%", "40%","50%","50%","50%"] ,
+        },
+        {
+            times:["08:00", "12:00","16:00","20:00","24:00"] 
+            ,
+            weatherIcons:["dummyIcon1", "dummyIcon2","dummyIcon3","dummyIcon4","dummyIcon5"] ,
+          
+            temperature:["12ºc", "14ºc","16ºc","13ºc","10ºc"] ,
+           
+            humidity:["60%", "40%","50%","50%","50%"] ,
+        },
+        {
+            times:["08:00", "12:00","16:00","20:00","24:00"] 
+            ,
+            weatherIcons:["dummyIcon1", "dummyIcon2","dummyIcon3","dummyIcon4","dummyIcon5"] ,
+          
+            temperature:["12ºc", "14ºc","16ºc","13ºc","10ºc"] ,
+           
+            humidity:["60%", "40%","50%","50%","50%"] ,
+        },
+        
+        
+    
 ]
 
 export default DummyData

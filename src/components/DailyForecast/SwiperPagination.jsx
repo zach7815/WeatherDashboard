@@ -21,11 +21,11 @@ const SwiperFunction = ()=>{
             modules={[Pagination]}
             className="weatherContainer"
           >
-            <SwiperSlide><FiveDayForecast /></SwiperSlide>
-            <SwiperSlide><FiveDayForecast /></SwiperSlide>
-            <SwiperSlide><FiveDayForecast /></SwiperSlide>
-            <SwiperSlide><FiveDayForecast /></SwiperSlide>
-            <SwiperSlide><FiveDayForecast /></SwiperSlide>
+            <SwiperSlide><FiveDayForecast day="Today" /></SwiperSlide>
+            <SwiperSlide><FiveDayForecast day="Tuesday"   /></SwiperSlide>
+            <SwiperSlide><FiveDayForecast day="Wednesday" /></SwiperSlide>
+            <SwiperSlide><FiveDayForecast day="Thursday" /></SwiperSlide>
+            <SwiperSlide><FiveDayForecast  day="Friday"/></SwiperSlide>
           </Swiper>
         </>
       );

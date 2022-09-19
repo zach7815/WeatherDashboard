@@ -1,12 +1,5 @@
-/* Remove browser defaults */
 
-  
-  /* Style App.js wrapper */
-
-  
-  /* Tab Container */
- 
-  /* Tab Navigation */
+@media screen and (min-width:1280px){
   ul.nav {
     width: 100%;
     display: flex;
@@ -53,4 +46,8 @@
  div.TabContent div.weatherContainer{
     padding: 0;
   }
+
+}
+
+
   

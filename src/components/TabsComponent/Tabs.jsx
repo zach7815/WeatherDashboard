@@ -5,7 +5,16 @@ import "./tabs.css"
 import FiveDayForecast from "../DailyForecast/FiveDayWeather";
 import DummyData from "../DummyData";
 
-const [Days]=DummyData
+
+
+const day=[
+{id:1, day:"Today", tabId:"tab1"},
+{id:2, day:"Tuesday", tabId:"tab2"},
+{id:3, day:"Wednesday", tabId:"tab3"},
+{id:4, day:"Thursday",tabId:"tab4"}, 
+{id:5, day: "Friday",tabId:"tab5"}
+
+]
 
 
 const Tabs = () => {
@@ -50,21 +59,14 @@ const Tabs = () => {
     <div className="Tabs weatherContainer">
 
       <div className="outlet">
-        <TabContent className="tab" id="tab1" activeTab={activeTab}>
-         <FiveDayForecast day="Today" {...Days}  />
+      {day.map((dayInfo, index)=>{
+        return(
+        <TabContent className="tab"  key={dayInfo.id} id={dayInfo.tabId} activeTab={activeTab}>
+         <FiveDayForecast day={dayInfo.day} dayData={DummyData}  />
         </TabContent>
-        <TabContent className="tab" id="tab2" activeTab={activeTab}>
-        <FiveDayForecast day="Monday" {...Days} />
-        </TabContent>
-        <TabContent className="tab" id="tab3" activeTab={activeTab}>
-        <FiveDayForecast day="Wednesday" {...Days} />
-        </TabContent>
-        <TabContent className="tab" id="tab4" activeTab={activeTab}>
-        <FiveDayForecast day="Thursday" {...Days}/>
-        </TabContent>
-        <TabContent className="tab" id="tab5" activeTab={activeTab}>
-        <FiveDayForecast day="Friday" {...Days} />
-        </TabContent>
+        )
+
+      })}
       </div>
     </div>
     </>

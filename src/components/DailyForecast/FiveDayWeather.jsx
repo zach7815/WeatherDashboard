@@ -5,10 +5,9 @@ import {icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 
 
-const FiveDayForecast = ({day, dayOne, dayTwo, dayThree, dayFour, dayFive})=>{
+const FiveDayForecast = ({day,dayData})=>{
 
-console.log(dayOne)
-
+    console.log(dayData)
 
 
     return (
@@ -18,12 +17,12 @@ console.log(dayOne)
         <h4 className="day"> {day}</h4>
         <div className="borderBottom"></div>
         </div>
-        
         <FourHourCast  time="8:00" temperature="22ºc" humidity="80"/> 
         <FourHourCast  time="12:00" temperature="22ºc" humidity="90"/> 
         <FourHourCast  time="16:00" temperature="22ºc" humidity="80"/> 
         <FourHourCast  time="20:00" temperature="22ºc" humidity="70"/> 
-        <FourHourCast  time="00:00" temperature="10ºc" humidity="60"/> 
+        <FourHourCast  time="00:00" temperature="10ºc" humidity="60"/>
+     
         </div>
     )
 }

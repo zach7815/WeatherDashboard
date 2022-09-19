@@ -4,10 +4,10 @@ body{
     height: 100vh;
     background-image: url("https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
     background-repeat: no-repeat center center fixed; 
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    background-size: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     font-family: 'Roboto', sans-serif;
     image-rendering: crisp-edges;
  image-rendering: -moz-crisp-edges;          /* Firefox */
@@ -59,7 +59,7 @@ body{
    justify-content: flex-start;
    gap:1rem;
    height: fit-content;
-   width: 100%;
+   width: cover;
    padding: 0 1.5rem 0 1.5rem;
 position: relative;
 }
@@ -101,7 +101,7 @@ position: relative;
 .dayForecast{
     flex-direction: row;
     gap:2.5rem;
-    width: 100%;
+    width: cover;
     align-items:center;
     justify-content: space-around;
     padding: 0 1.5rem 0 1.5rem;
@@ -145,7 +145,7 @@ position: relative;
 /* Test Pagination Style */
 .swiper {
     width: 95%;
-    height: 100%;
+    height: cover;
     padding: 0.2rem;
     height:24rem;
   }
@@ -175,9 +175,9 @@ position: relative;
   
   .swiper-slide img {
     display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: 100%;
+    width: cover;
+    height: cover;
+    object-fit: cover;
   }
   
   .swiper-pagination-bullet {
@@ -203,13 +203,9 @@ position: relative;
     width:50px
   }
 
-  .currentTime{
-    display:none;
-  }
+ 
 
-  
-
-  .Tabs{
+  .Tabs, .nav, .currentTime{
     display: none;
   }
 
@@ -239,6 +235,9 @@ position: relative;
   @media screen and (min-width:800px) {
    .currentWeather{
     width:91%
+   }
+   .dayForecast, .dayOfWeek{
+    width:100%;
    }
   }
 
@@ -286,7 +285,7 @@ position: relative;
         display: block;
         grid-area: 4/2/4/4;
         width: 97.5%;
-        height: 100%;
+        height: cover;
 
     }
 
@@ -303,7 +302,7 @@ position: relative;
     }
     .currentTime, .currentWeather{
         width:95%;
-        height:100%
+        height:cover
     }
     .borderBottom{
         width: 97%;
