@@ -207,7 +207,9 @@ position: relative;
     display:none;
   }
 
-  .buttonContainer{
+  
+
+  .Tabs{
     display: none;
   }
 
@@ -271,9 +273,24 @@ position: relative;
         grid-area:2/3/3/4
     }
     .swiper{
-        grid-area: 4/2/4/4;
-        width: 99%;
+        display: none;
     }
+
+    .nav{
+        grid-area: 3/2/3/4;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .Tabs{
+        display: block;
+        grid-area: 4/2/4/4;
+        width: 97.5%;
+        height: 100%;
+
+    }
+
+
     .creditCaption{
         grid-area: 4/1/4/4;
         align-self: flex-end;
@@ -291,29 +308,7 @@ position: relative;
     .borderBottom{
         width: 97%;
     }
+   
+   
 
-    .buttonContainer{
-        display: flex;
-        grid-area: 3/2/3/4;
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .buttonContainer button{
-        height: 70%;
-        padding:0.5rem;
-        background-color: #FFFFFF;
-        opacity: 77%;
-        border: none;
-        border-radius: 2px;
-        width:6rem;
-        cursor: pointer;
-    }
-    .buttonContainer button:hover{
-        opacity:100%
-    }
-    .buttonContainer button:active{
-        background-color: #8D8D8D;
-        color:white;
-    }
   }
