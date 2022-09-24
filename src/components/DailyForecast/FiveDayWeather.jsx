@@ -5,11 +5,26 @@ import {icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 
 
-const FiveDayForecast = ({day,dayData})=>{
+const FiveDayForecast = ({day, forecast})=>{
+    let times, weatherIcons, temperature, humidity;
+const handleProp = (prop)=>{
+    if(!prop){
+        console.log("not loaded");
+    }
+    else{
+       ( {times, weatherIcons, temperature, humidity} = prop);
+       console.log(humidity, temperature, times, weatherIcons)
+       return(
+       times.map((time,index)=>{
+            return(
+                <FourHourCast  key={index} time={time}  weatherIcons={weatherIcons[index]} temperature={temperature[index]} humidity={humidity[index]}/>
+            )
+       })
 
-    console.log(dayData)
- 
+       ) 
+    }
 
+}
 
     return (
         <div className="weatherContainer">
@@ -18,12 +33,9 @@ const FiveDayForecast = ({day,dayData})=>{
         <h4 className="day"> {day}</h4>
         <div className="borderBottom"></div>
         </div>
-        <FourHourCast  time="8:00" temperature="22ºc" humidity="80"/> 
-        <FourHourCast  time="12:00" temperature="22ºc" humidity="90"/> 
-        <FourHourCast  time="16:00" temperature="22ºc" humidity="80"/> 
-        <FourHourCast  time="20:00" temperature="22ºc" humidity="70"/> 
-        <FourHourCast  time="00:00" temperature="10ºc" humidity="60"/>
-     
+     {handleProp(forecast)}
+        
+       
         </div>
     )
 }
