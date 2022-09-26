@@ -1,30 +1,26 @@
 import React from "react";
 import FourHourCast from "./FourHourCast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {icon } from '@fortawesome/fontawesome-svg-core/import.macro' 
-
-
+import {icon } from '@fortawesome/fontawesome-svg-core/import.macro' ;
 
 const FiveDayForecast = ({day, forecast})=>{
     let times, weatherIcons, temperature, humidity;
 const handleProp = (prop)=>{
     if(!prop){
-        console.log("not loaded");
+       return;
     }
     else{
        ( {times, weatherIcons, temperature, humidity} = prop);
-       console.log(humidity, temperature, times, weatherIcons)
        return(
        times.map((time,index)=>{
             return(
                 <FourHourCast  key={index} time={time}  weatherIcons={weatherIcons[index]} temperature={temperature[index]} humidity={humidity[index]}/>
             )
        })
+       ) ;
+    };
 
-       ) 
-    }
-
-}
+};
 
     return (
         <div className="weatherContainer">
@@ -38,6 +34,6 @@ const handleProp = (prop)=>{
        
         </div>
     )
-}
+};
 
-export default FiveDayForecast
+export default FiveDayForecast;
