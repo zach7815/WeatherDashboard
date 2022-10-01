@@ -4,7 +4,6 @@
   "description": "A weather dashboard that combines several api's",
   "main": "index.js",
   "type": "module",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

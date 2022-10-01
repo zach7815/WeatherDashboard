@@ -1,4 +1,4 @@
-import express, { response } from 'express'
+import express, { json, response } from 'express'
 import * as dotenv from 'dotenv' 
 import nodeFetch from 'node-fetch';
 import { createApi } from 'unsplash-js';
@@ -79,12 +79,21 @@ openCage.geocode({q:geoData, key:openCageKey, language:"En"})
        const {response} =unsplashResults;
        let photoList= response.results;
        let randomPhoto= photoList[randomNumber(10)];
-       console.log(randomPhoto);
+       
        return randomPhoto;
     }).then(
         (imageMetaData=>{
-            console.log(imageMetaData);
-          res.json({data:imageMetaData})
+           const {alt_description, links, urls, user }= imageMetaData
+
+            const refinedImageData= {
+                description:alt_description,
+                unsplash_url:links,
+                display_urls:urls, 
+                photographerInfo:user
+            }
+            console.log(refinedImageData);
+            res.json({refinedImageData})
+          
         })
     ).catch(
         (error)=>{
