@@ -24,7 +24,7 @@ function App() {
 const unsplashInfo=getLocationData()
 setUnsplashData(unsplashInfo);
 console.log(unsplashData);
-  }, [])
+  }, [unsplashData])
 
 
 

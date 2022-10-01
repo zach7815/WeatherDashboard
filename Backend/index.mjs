@@ -1,4 +1,4 @@
-import express, { json, response } from 'express'
+import express from 'express'
 import * as dotenv from 'dotenv' 
 import nodeFetch from 'node-fetch';
 import { createApi } from 'unsplash-js';
