@@ -10,37 +10,18 @@ app.use(express.json({limit:'1mb'}));
 const PORT= 8000;
 const openCageKey= process.env.OPENCAGE_API_KEY;
 const unSplashAccessKey=process.env.UNSPLASH_ACESS_KEY;
+const openWeatherKey=process.env.OPEN_WEATHER_KEY;
 
 const randomNumber = (max)=>{
     return Math.round(Math.random()*max)
 }
 
 
-
-let geoData;
-
-openCage.geocode({q:'37.4396, -122.1864', key:openCageKey, language:"En"})
-    .then((data)=>{
-      const {results}=data;
-   geoData=results
-    })
-  
-
-
-
-
-
-
 app.use(express.json())
 
-app.get("/api/coordinates", (req,res)=>{
- 
-    res.status(200).send(geoData)
-    
 
-})
 
-app.post("/api/location", (req,res)=>{
+app.post("/api/unsplashImages", (req,res)=>{
       
     let    lat=req.body.lat;
     let  lng=req.body.lng;
@@ -91,7 +72,6 @@ openCage.geocode({q:geoData, key:openCageKey, language:"En"})
                 display_urls:urls, 
                 photographerInfo:user
             }
-            console.log(refinedImageData);
             res.json({refinedImageData})
           
         })
@@ -104,8 +84,31 @@ openCage.geocode({q:geoData, key:openCageKey, language:"En"})
 
 })
 
+app.post("/api/currentWeather",async (req,res)=>{
+
+    let    lat=req.body.lat;
+    let  lng=req.body.lng;
+const URL=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${openWeatherKey}`
+const response= await nodeFetch(URL);
+const result= await response.json();
+const {weather,main, wind, sys, name}= result;
+
+const currentWeather={
+    weather:weather,
+    temperature:main,
+    wind:wind,
+    dayLength:sys,
+    location:name,
+}
+
+res.json({currentWeather})
+
+})
+
+app.post("/api/fiveDayWeather",(req,res)=>{
 
 
+})
 
 
 app.listen(PORT, ()=>{
