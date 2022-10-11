@@ -17,8 +17,13 @@ const day=[
 
 
 const Tabs = ({forecasts}) => {
-  const [activeTab, setActiveTab] = useState("tab1");
   
+  const [activeTab, setActiveTab] = useState("tab1");
+if(!forecasts){
+  console.log("not loaded yet");
+}
+
+else
   return (
     <>
         <ul className="nav">
@@ -70,6 +75,7 @@ const Tabs = ({forecasts}) => {
     </div>
     </>
   );
+    
 };
 
 export default Tabs;

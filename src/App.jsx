@@ -6,8 +6,8 @@ import SwiperFunction from "./components/DailyForecast/SwiperPagination.jsx";
 import LocalDateAndTime from "./components/LocalTime.jsx";
 import Tabs from "./components/TabsComponent/Tabs.jsx";
 import "./styles.css"
-import DummyData from "./components/DummyData.js";
-import {useFetch} from "./components/useFetch.js"
+
+
 
 let getLocationPromise = ()=>{
   return new Promise(function(resolve,reject){
@@ -20,11 +20,11 @@ let getLocationPromise = ()=>{
 
 
 function App() {
-  const [fiveDayForecast]= useState(DummyData);
+  const [forecast, setForecast]= useState();
   const [currentWeather,setCurrentWeather]=useState();
   const [location, setLocation]=useState();
   const [unsplashData, setUnsplashData]=useState();
-  const {loading, data, error}=useFetch('/api/location');
+
 
 
 // requests users current location
@@ -91,6 +91,27 @@ else{
 }
 },[location])
 
+//request five days of forecast
+useEffect(()=>{
+  if(!location){
+    console.log("location not granted");
+  }
+  else{
+    const {latitude:lat, longitude:lng}=location["coords"];
+    
+     const requestOptions = {
+             method:'POST',
+            headers:{"Content-Type": "application/json"},
+             body: JSON.stringify({lat:lat, lng:lng})
+          }
+  
+          fetch('/api/fiveDayForecast',requestOptions)
+          .then(data=>data.json())
+          .then(setForecast)
+          .catch(error=>{console.log(error);})
+  }
+  },[location])
+
 
 
   return (
@@ -100,8 +121,8 @@ else{
 <SearchBar />
 <LocalDateAndTime />
 <CurrentWeather currentWeather={currentWeather}/>
-<SwiperFunction forecasts={fiveDayForecast} />
-<Tabs forecasts={fiveDayForecast} />
+<SwiperFunction forecasts={forecast} />
+<Tabs forecasts={forecast} />
 <CreditDetails photographerDetails={unsplashData} />
 </div>
  </div>

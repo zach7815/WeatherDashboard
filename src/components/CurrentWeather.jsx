@@ -17,19 +17,22 @@ const CurrentWeather =({currentWeather})=>{
         const{weather}=currentWeather;
         weatherVerb=weather[0].main;
         description=weather[0].description;
-        weatherImage=weather[0].icon;
+        weatherImage=`http://openweathermap.org/img/w/${weather[0].icon}.png`
        const {temperature}=currentWeather;
-       console.log(temperature);
         temp=temperature.temp;
-        feelsLike=temperature.feels_like
+        feelsLike=temperature.feels_like;
+        document.title= `${weatherVerb} ${temp}ºc`
+   
     }
    return (
     <div className="weatherContainer currentWeather">
 <h2>{weatherVerb}</h2>
 <h3 className="currentLocation"> {location}</h3>
-<p>Current Temperature:{temp}ºc</p>
-<p>Feels Like:{feelsLike}ºc</p>
-<img className="currentWeatherIcon" src={`http://openweathermap.org/img/w/${weatherImage}.png`}alt={description}/>
+<h4>Current Temperature</h4>
+<p>{temp}ºc</p>
+<h4>Feels Like</h4>
+<p>{feelsLike}ºc</p>
+<img className="currentWeatherIcon" src={weatherImage}alt={description}/>
 <p>{windSpeed}</p>
 <p>{description}</p>
     </div>

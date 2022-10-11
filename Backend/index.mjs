@@ -8,6 +8,8 @@ const app = express();
 app.use(express.static('public'))
 app.use(express.json({limit:'1mb'}));
 const PORT= 8000;
+
+
 const openCageKey= process.env.OPENCAGE_API_KEY;
 const unSplashAccessKey=process.env.UNSPLASH_ACESS_KEY;
 const openWeatherKey=process.env.OPEN_WEATHER_KEY;
@@ -105,8 +107,30 @@ res.json({currentWeather})
 
 })
 
-app.post("/api/fiveDayWeather",(req,res)=>{
+app.post("/api/fiveDayForecast",async(req,res)=>{
+    let    lat=req.body.lat;
+    let  lng=req.body.lng;
+const URL=`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=metric&appid=${openWeatherKey}`
+const response= await nodeFetch(URL);
+const result= await response.json();
+const {list}=result;
 
+const tempArray = list.map(object=>object["main"]["temp"]);
+const humidityArray= list.map(object=>object["main"]["humidity"]);
+const iconArray =  list.map(object=>object["weather"][0]["icon"]);
+const weatherDescrp = list.map(object=>object["weather"][0]["description"]);
+const time =  list.map(object=>object["dt_txt"]);
+const daysArray = [];
+for (let i=0; i<5; i++){
+  daysArray.push({
+    times:time.splice(0,5),
+    weatherIcons:iconArray.splice(0,5),
+    Description:weatherDescrp.splice(0,5),
+    temperature:tempArray.splice(0,5),
+    humidity:humidityArray.splice(0,5)
+})   
+}
+res.json(daysArray)
 
 })
 
