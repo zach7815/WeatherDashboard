@@ -12,7 +12,6 @@ const day=[
 {id:3, day:"Wednesday", tabId:"tab3"},
 {id:4, day:"Thursday",tabId:"tab4"}, 
 {id:5, day: "Friday",tabId:"tab5"}
-
 ]
 
 
@@ -20,40 +19,41 @@ const Tabs = ({forecasts}) => {
   
   const [activeTab, setActiveTab] = useState("tab1");
 if(!forecasts){
-  console.log("not loaded yet");
+  return
 }
 
 else
+console.log(forecasts["day"])
   return (
     <>
         <ul className="nav">
         <TabNavItem
-          title="Today"
+          title={forecasts[0]["day"]}
           className="tab" id="tab1"
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <TabNavItem
-          title="Monday"
+          title={forecasts[1]["day"]}
           id="tab2"
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
         <TabNavItem
-          title="Tuesday"
+          title={forecasts[2]["day"]}
            id="tab3"
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
 
         <TabNavItem
-          title="Wednesday"
+          title={forecasts[3]["day"]}
            id="tab4"
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
             <TabNavItem
-          title="Thursday"
+          title={forecasts[4]["day"]}
           id="tab5"
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -64,9 +64,10 @@ else
 
       <div className="outlet">
       {forecasts.map((forecast,index)=>{
+       
         return(
         <TabContent className="tab"  key={day[index].id} id={day[index].tabId} activeTab={activeTab}>
-         <FiveDayForecast day={day[index].day} forecast={forecast}/>
+         <FiveDayForecast day={forecast["day"]} forecast={forecast} />
         </TabContent>
         )
 

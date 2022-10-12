@@ -50,9 +50,12 @@ useEffect(()=>{
 
         fetch('/api/unsplashImages',requestOptions)
         .then(data=>data.json())
-        .then(setUnsplashData)
+        .then((result)=> {
+          console.log(result);
+          setUnsplashData(result)
+        })
         .catch(error=>{console.log(error);})
-   
+       
   }
 },[location]);
 
@@ -118,7 +121,7 @@ useEffect(()=>{
     <div className="backgroundImg">
     <div className="imageOverlay">
  <div className="container">
-<SearchBar />
+<SearchBar imageData={unsplashData} setImageData={setUnsplashData}/>
 <LocalDateAndTime />
 <CurrentWeather currentWeather={currentWeather}/>
 <SwiperFunction forecasts={forecast} />

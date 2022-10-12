@@ -30,8 +30,6 @@ const handleProp = (prop)=>{
         <div className="borderBottom"></div>
         </div>
      {handleProp(forecast)}
-        
-       
         </div>
     )
 };
