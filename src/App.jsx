@@ -49,9 +49,9 @@ useEffect(()=>{
         }
 
         fetch('/api/unsplashImages',requestOptions)
-        .then(data=>data.json())
+        .then((data)=>{
+          return data.json()})
         .then((result)=> {
-          console.log(result);
           setUnsplashData(result)
         })
         .catch(error=>{console.log(error);})
@@ -68,8 +68,7 @@ const bgImage=document.querySelector(".backgroundImg")
     bgImage.style.backgroundImage='url("https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80")';
   }
   else{
-
- bgImage.style.backgroundImage=`url(${unsplashData["refinedImageData"]["display_urls"]["full"]})`;
+ bgImage.style.backgroundImage=`url(${unsplashData["display_urls"]["full"]})`;
   }
 },[unsplashData])
 
@@ -89,7 +88,10 @@ else{
 
         fetch('/api/currentWeather',requestOptions)
         .then(data=>data.json())
-        .then(setCurrentWeather)
+        .then(result=>{
+          console.log(result)
+          setCurrentWeather(result)
+        })
         .catch(error=>{console.log(error);})
 }
 },[location])
@@ -121,7 +123,7 @@ useEffect(()=>{
     <div className="backgroundImg">
     <div className="imageOverlay">
  <div className="container">
-<SearchBar imageData={unsplashData} setImageData={setUnsplashData}/>
+<SearchBar setWeatherData={setCurrentWeather} setForecastData={setForecast} setImageData={setUnsplashData}/>
 <LocalDateAndTime />
 <CurrentWeather currentWeather={currentWeather}/>
 <SwiperFunction forecasts={forecast} />

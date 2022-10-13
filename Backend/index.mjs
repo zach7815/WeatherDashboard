@@ -31,9 +31,12 @@ const getImage= async (location)=>{
         const {response}= photoList;
         const results= response.results;
         const randomPhotoInfo= results[randomNumber(10)]
-        const {alt_description, links, urls, user }= randomPhotoInfo;
+
+        const {alt_description, links, urls, user }= randomPhotoInfo||{};
+        
+        
           const refinedImageData= {
-            description:alt_description||"not available",
+            description:alt_description,
             unsplash_url:links,
             display_urls:urls, 
             photographerInfo:user
@@ -44,8 +47,106 @@ const getImage= async (location)=>{
         console.log(err)
     }
 }
+const destructGeoData = (openCageData)=>{
+ 
+    const {results} =openCageData;
+        const components= results[0]["components"];
+         let location={
+         timezone:results[0]["annotations"]["timezone"]["name"],
+         }
+        if(components.hasOwnProperty("city")){
+             location.city= components["city"] 
+             }
+                else if(components.hasOwnProperty("town")){
+                    location.town= components["town"] 
+                }
+                else{
+                    location.country=components["country"] 
+                }
+                    
+                return location
+}
+
+const isCity = (calltype,lat, lng, city)=>{
+    let URL;
+    if(calltype==="forecast")
+    {
+        if(!city){
+            URL=`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=metric&appid=${openWeatherKey}`;
+           return URL;
+       }
+       else{
+            URL= `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${openWeatherKey}`;
+            return URL;
+       } 
+    }
+    else{
+        if(!city){
+            URL=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${openWeatherKey}`;
+           return URL;
+       }
+       else{
+            URL= `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${openWeatherKey}`;
+            return URL;
+       }
+    }
+   
+}
+
+const getWeather = async (calltype, lat, lng, city)=>{
+  const URL=isCity(calltype, lat,lng,city);
+    const response= await nodeFetch(URL);
+    const result= await response.json();
+    const {weather,main, wind, sys, name}= result;
+    
+    const currentWeather={
+        weather:weather,
+        temperature:main,
+        wind:wind,
+        dayLength:sys,
+        location:name,
+    }
+    let weatherPresent= Object.values(currentWeather).every(value=>value===undefined);
+    if(weatherPresent===false){
+        return currentWeather;
+    }
+    else{
+        return undefined;
+    }
+    
+}
 
 
+const getForecast = async (calltype,lat, lng, city)=>{
+    const URL= await isCity(calltype,lat,lng,city);
+    console.log(URL)
+    const response= await nodeFetch(URL);
+const result= await response.json();
+const {list}=result;
+const day= ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+const tempArray = list.map(object=>object["main"]["temp"]);
+const humidityArray= list.map(object=>object["main"]["humidity"]);
+const iconArray =  list.map(object=>object["weather"][0]["icon"]);
+const weatherDescrp = list.map(object=>object["weather"][0]["description"]);
+const dayIndex = [...new Set(list.map(object=> day[new Date(object["dt_txt"].slice(0, 11)).getDay()]))];
+const time =  list.map(object=> object["dt_txt"].slice(11));
+
+
+const daysArray = [];
+for (let i=0; i<5; i++){
+  daysArray.push({
+    times:time.splice(0,5),
+    day:dayIndex.splice(0,1),
+    weatherIcons:iconArray.splice(0,5),
+    Description:weatherDescrp.splice(0,5),
+    temperature:tempArray.splice(0,5),
+    humidity:humidityArray.splice(0,5)
+}) ;  
+};
+return daysArray;
+    
+}
 
 const randomNumber = (max)=>{
     return Math.round(Math.random()*max)
@@ -56,68 +157,42 @@ const randomNumber = (max)=>{
 
 app.post("/api/search", async (req,res)=>{
 const location= req.body;
-console.log(location)
+
 const photoInfo= await getImage(location);
-res.json({refinedImageData:photoInfo})
+const weather= await getWeather("weather",undefined, undefined, location.city);
+const forecast = await getForecast("forecast",undefined, undefined, location.city);
+console.log(forecast);
+res.json([photoInfo, weather, forecast])
 res.end()
 
 })
 
-app.post("/api/unsplashImages", (req,res)=>{
+app.post("/api/unsplashImages",  async (req,res)=>{
       
     let    lat=req.body.lat;
     let  lng=req.body.lng;
-        let geoData=`${lat},${lng}`
+        let geoData=`${lat},${lng}`;
+try{
+ const result = await openCage.geocode({q:geoData, key:openCageKey, language:"En"});
+const locationData = await result;
+const locationObject =destructGeoData(locationData);
+const refinedImageData = await getImage(locationObject);
+res.json(refinedImageData);
+res.end();
+}
 
-openCage.geocode({q:geoData, key:openCageKey, language:"En"})
-    .then((data)=>{
-        const {results} =data;
-       const components= results[0]["components"];
-        let location={
-        timezone:results[0]["annotations"]["timezone"]["name"],
-        }
-        if(components.hasOwnProperty("city")){
-            location.city= components["city"] 
-
-        }
-        else if(components.hasOwnProperty("town")){
-            location.town= components["town"] 
-        }
-        else{
-            location.country=components["country"] 
-        }
-            
-        return location
-
-    })
-   
-    .catch(
-        (error)=>{
-            console.log(Error(error.stack));
-        }
-    )
-   
+catch(error){
+console.log(error);
+}
 
 })
 
 app.post("/api/currentWeather",async (req,res)=>{
 
-    let    lat=req.body.lat;
-    let  lng=req.body.lng;
-const URL=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&appid=${openWeatherKey}`
-const response= await nodeFetch(URL);
-const result= await response.json();
-const {weather,main, wind, sys, name}= result;
-
-const currentWeather={
-    weather:weather,
-    temperature:main,
-    wind:wind,
-    dayLength:sys,
-    location:name,
-}
-
-res.json({currentWeather})
+ const lat=req.body.lat;
+ const lng=req.body.lng;
+const currentWeather = await getWeather("weather",lat,lng);
+res.json(currentWeather);
 res.end()
 })
 

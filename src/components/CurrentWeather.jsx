@@ -13,7 +13,7 @@ const CurrentWeather =({currentWeather})=>{
     }
 
     else{
-        ({currentWeather}=currentWeather)
+        console.log(currentWeather)
         const{weather}=currentWeather;
         weatherVerb=weather[0].main;
         description=weather[0].description;
@@ -22,12 +22,14 @@ const CurrentWeather =({currentWeather})=>{
         temp=temperature.temp;
         feelsLike=temperature.feels_like;
         document.title= `${weatherVerb} ${temp}ºc`
-   
+        location=currentWeather["location"]
     }
    return (
     <div className="weatherContainer currentWeather">
-<h2>{weatherVerb}</h2>
-<h3 className="currentLocation"> {location}</h3>
+    <h3>The Weather Right Now</h3>
+<h4>{weatherVerb}</h4>
+<h3>Location You Searched</h3>
+<p className="currentLocation"> {location}</p>
 <h4>Current Temperature</h4>
 <p>{temp}ºc</p>
 <h4>Feels Like</h4>

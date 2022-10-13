@@ -12,8 +12,8 @@ const CreditDetails = ({photographerDetails})=>{
     }
     else{
  name =photographerDetails["photographerInfo"]["name"];
-username=photographerDetails["refinedImageData"]["photographerInfo"]["username"];
-unsplash_url=photographerDetails["refinedImageData"]["unsplash_url"]["html"]
+username=photographerDetails["photographerInfo"]["username"];
+unsplash_url=photographerDetails["unsplash_url"]["html"]
     }
 
    

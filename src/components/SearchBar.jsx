@@ -8,7 +8,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 
 
-const SearchBar = ({setImageData})=>{
+const SearchBar = ({setWeatherData, setForecastData, setImageData})=>{
     const [query, setQuery]= useState("")
 
     const  handleSubmit =  async (e)=>{
@@ -19,17 +19,29 @@ const SearchBar = ({setImageData})=>{
            headers:{"Content-Type": "application/json"},
             body: JSON.stringify({city:query})
          }
-    
-         try{
+
+    if (!query){
+        alert("please enter a city");
+    }
+    else{
+        try{
             const response =  await fetch('/api/search', requestOptions);
             const result =  await response.json();
-            const {refinedImageData}=result;
-            console.log(refinedImageData);
+           if(result[1]===null){
+            alert("city not recognised, please enter a valid city")
+           }
+           else{
+            setImageData(result[0]);
+            setWeatherData(result[1]);
+            setForecastData(result[2]);
+           }
          }
          catch(err){
             console.log(err);
          }
-      
+    }
+        
+      setQuery("")
        }
   
 
