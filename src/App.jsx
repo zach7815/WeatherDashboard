@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useCallback} from "react";
 import SearchBar from "./components/SearchBar.jsx";
 import CurrentWeather from "./components/CurrentWeather.jsx";
 import CreditDetails from "./components/ImageCredit.jsx";
@@ -6,10 +6,11 @@ import SwiperFunction from "./components/DailyForecast/SwiperPagination.jsx";
 import LocalDateAndTime from "./components/LocalTime.jsx";
 import Tabs from "./components/TabsComponent/Tabs.jsx";
 import "./styles.css"
+import useFetch from "./components/useFetch.js";
 
 
 
-let getLocationPromise = ()=>{
+const getLocationPromise = ()=>{
   return new Promise(function(resolve,reject){
     navigator.geolocation.getCurrentPosition(
       position=>resolve(position),
@@ -19,13 +20,12 @@ let getLocationPromise = ()=>{
   }
 
 
+
 function App() {
   const [forecast, setForecast]= useState();
   const [currentWeather,setCurrentWeather]=useState();
   const [location, setLocation]=useState();
   const [unsplashData, setUnsplashData]=useState();
-
-
 
 // requests users current location
 useEffect(()=>{
@@ -34,32 +34,7 @@ useEffect(()=>{
 },[])
 
 //makes unsplashImage API call
-useEffect(()=>{
-  
-  if(!location){
-    console.log("position not granted");
-  }
-  else{
-   const {latitude:lat, longitude:lng}=location["coords"];
-  
-   const requestOptions = {
-           method:'POST',
-          headers:{"Content-Type": "application/json"},
-           body: JSON.stringify({lat:lat, lng:lng})
-        }
-
-        fetch('/api/unsplashImages',requestOptions)
-        .then((data)=>{
-          return data.json()})
-        .then((result)=> {
-          setUnsplashData(result)
-        })
-        .catch(error=>{console.log(error);})
-       
-  }
-},[location]);
-
-
+useFetch(location, "/api/unsplashImages", setUnsplashData)
 // handles background image setting
 useEffect(()=>{
 const bgImage=document.querySelector(".backgroundImg")
@@ -73,50 +48,11 @@ const bgImage=document.querySelector(".backgroundImg")
 },[unsplashData])
 
 // requests current weather Data
-useEffect(()=>{
-if(!location){
-  console.log("location not granted");
-}
-else{
-  const {latitude:lat, longitude:lng}=location["coords"];
-  
-   const requestOptions = {
-           method:'POST',
-          headers:{"Content-Type": "application/json"},
-           body: JSON.stringify({lat:lat, lng:lng})
-        }
+useFetch(location, "/api/currentWeather", setCurrentWeather);
 
-        fetch('/api/currentWeather',requestOptions)
-        .then(data=>data.json())
-        .then(result=>{
-          console.log(result)
-          setCurrentWeather(result)
-        })
-        .catch(error=>{console.log(error);})
-}
-},[location])
 
-//request five days of forecast
-useEffect(()=>{
-  if(!location){
-    console.log("location not granted");
-  }
-  else{
-    const {latitude:lat, longitude:lng}=location["coords"];
-    
-     const requestOptions = {
-             method:'POST',
-            headers:{"Content-Type": "application/json"},
-             body: JSON.stringify({lat:lat, lng:lng})
-          }
-  
-          fetch('/api/fiveDayForecast',requestOptions)
-          .then(data=>data.json())
-          .then(setForecast)
-          .catch(error=>{console.log(error);})
-  }
-  },[location])
-
+// request five days of forecast
+useFetch(location,"/api/fiveDayForecast", setForecast)
 
 
   return (

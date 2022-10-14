@@ -157,7 +157,6 @@ const randomNumber = (max)=>{
 
 app.post("/api/search", async (req,res)=>{
 const location= req.body;
-
 const photoInfo= await getImage(location);
 const weather= await getWeather("weather",undefined, undefined, location.city);
 const forecast = await getForecast("forecast",undefined, undefined, location.city);
@@ -188,7 +187,6 @@ console.log(error);
 })
 
 app.post("/api/currentWeather",async (req,res)=>{
-
  const lat=req.body.lat;
  const lng=req.body.lng;
 const currentWeather = await getWeather("weather",lat,lng);
@@ -197,34 +195,10 @@ res.end()
 })
 
 app.post("/api/fiveDayForecast",async(req,res)=>{
-    let    lat=req.body.lat;
-    let  lng=req.body.lng;
-const URL=`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lng}&units=metric&appid=${openWeatherKey}`
-const response= await nodeFetch(URL);
-const result= await response.json();
-const {list}=result;
-const day= ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
-const tempArray = list.map(object=>object["main"]["temp"]);
-const humidityArray= list.map(object=>object["main"]["humidity"]);
-const iconArray =  list.map(object=>object["weather"][0]["icon"]);
-const weatherDescrp = list.map(object=>object["weather"][0]["description"]);
-const dayIndex = [...new Set(list.map(object=> day[new Date(object["dt_txt"].slice(0, 11)).getDay()]))];
-const time =  list.map(object=> object["dt_txt"].slice(11));
-
-
-const daysArray = [];
-for (let i=0; i<5; i++){
-  daysArray.push({
-    times:time.splice(0,5),
-    day:dayIndex.splice(0,1),
-    weatherIcons:iconArray.splice(0,5),
-    Description:weatherDescrp.splice(0,5),
-    temperature:tempArray.splice(0,5),
-    humidity:humidityArray.splice(0,5)
-}) ;  
-};
-res.json(daysArray);
+let lat=req.body.lat;
+let lng=req.body.lng;
+ const forecast = await getForecast("forecast",lat, lng);
+res.json(forecast);
 res.end();
 
 })

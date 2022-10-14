@@ -28,7 +28,7 @@ const CurrentWeather =({currentWeather})=>{
     <div className="weatherContainer currentWeather">
     <h3>The Weather Right Now</h3>
 <h4>{weatherVerb}</h4>
-<h3>Location You Searched</h3>
+<h3>Your Location</h3>
 <p className="currentLocation"> {location}</p>
 <h4>Current Temperature</h4>
 <p>{temp}ºc</p>

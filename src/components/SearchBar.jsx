@@ -4,10 +4,6 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 
 
-   
-
-
-
 const SearchBar = ({setWeatherData, setForecastData, setImageData})=>{
     const [query, setQuery]= useState("")
 
