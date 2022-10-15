@@ -21,7 +21,7 @@ const SearchBar = ({setWeatherData, setForecastData, setImageData})=>{
     }
     else{
         try{
-            const response =  await fetch('/api/search', requestOptions);
+            const response =  await fetch('https://weather-dashboard-backend.onrender.com/api/search', requestOptions);
             const result =  await response.json();
            if(result[1]===null){
             alert("city not recognised, please enter a valid city")
