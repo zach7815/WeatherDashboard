@@ -15,6 +15,7 @@ const unSplashAccessKey=process.env.UNSPLASH_ACESS_KEY;
 const openWeatherKey=process.env.OPEN_WEATHER_KEY;
 
 
+// Main functions
 const getImage= async (location)=>{
    try{
     const api= await createApi({
@@ -23,22 +24,22 @@ const getImage= async (location)=>{
     })
    const photoList= await api.search.getPhotos(
     {query:location.city,
-         page:1, perPage:10, 
-         orderBy:"relevant", 
+         page:1, perPage:10,
+         orderBy:"relevant",
          orientation:"landscape"
         });
-  
+
         const {response}= photoList;
         const results= response.results;
         const randomPhotoInfo= results[randomNumber(10)]
 
         const {alt_description, links, urls, user }= randomPhotoInfo||{};
-        
-        
+
+
           const refinedImageData= {
             description:alt_description,
             unsplash_url:links,
-            display_urls:urls, 
+            display_urls:urls,
             photographerInfo:user
         };
         return refinedImageData;
@@ -46,26 +47,26 @@ const getImage= async (location)=>{
     catch(err){
         console.log(err)
     }
-}
+};
 const destructGeoData = (openCageData)=>{
- 
+
     const {results} =openCageData;
         const components= results[0]["components"];
          let location={
          timezone:results[0]["annotations"]["timezone"]["name"],
          }
         if(components.hasOwnProperty("city")){
-             location.city= components["city"] 
+             location.city= components["city"]
              }
                 else if(components.hasOwnProperty("town")){
-                    location.town= components["town"] 
+                    location.town= components["town"]
                 }
                 else{
-                    location.country=components["country"] 
+                    location.country=components["country"]
                 }
-                    
+
                 return location
-}
+};
 
 const isCity = (calltype,lat, lng, city)=>{
     let URL;
@@ -78,7 +79,7 @@ const isCity = (calltype,lat, lng, city)=>{
        else{
             URL= `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${openWeatherKey}`;
             return URL;
-       } 
+       }
     }
     else{
         if(!city){
@@ -90,15 +91,15 @@ const isCity = (calltype,lat, lng, city)=>{
             return URL;
        }
     }
-   
-}
+
+};
 
 const getWeather = async (calltype, lat, lng, city)=>{
   const URL=isCity(calltype, lat,lng,city);
     const response= await nodeFetch(URL);
     const result= await response.json();
     const {weather,main, wind, sys, name}= result;
-    
+
     const currentWeather={
         weather:weather,
         temperature:main,
@@ -113,40 +114,45 @@ const getWeather = async (calltype, lat, lng, city)=>{
     else{
         return undefined;
     }
-    
-}
+
+};
 
 
 const getForecast = async (calltype,lat, lng, city)=>{
     const URL= await isCity(calltype,lat,lng,city);
-    console.log(URL)
     const response= await nodeFetch(URL);
 const result= await response.json();
-const {list}=result;
-const day= ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-const tempArray = list.map(object=>object["main"]["temp"]);
-const humidityArray= list.map(object=>object["main"]["humidity"]);
-const iconArray =  list.map(object=>object["weather"][0]["icon"]);
-const weatherDescrp = list.map(object=>object["weather"][0]["description"]);
-const dayIndex = [...new Set(list.map(object=> day[new Date(object["dt_txt"].slice(0, 11)).getDay()]))];
-const time =  list.map(object=> object["dt_txt"].slice(11));
-
-
-const daysArray = [];
-for (let i=0; i<5; i++){
-  daysArray.push({
-    times:time.splice(0,5),
-    day:dayIndex.splice(0,1),
-    weatherIcons:iconArray.splice(0,5),
-    Description:weatherDescrp.splice(0,5),
-    temperature:tempArray.splice(0,5),
-    humidity:humidityArray.splice(0,5)
-}) ;  
-};
-return daysArray;
-    
+if(result.cod==="404"){
+    return undefined
 }
+else{
+    const {list}=result;
+    const day= ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    const tempArray = list.map(object=>object["main"]["temp"]);
+    const humidityArray= list.map(object=>object["main"]["humidity"]);
+    const iconArray =  list.map(object=>object["weather"][0]["icon"]);
+    const weatherDescrp = list.map(object=>object["weather"][0]["description"]);
+    const dayIndex = [...new Set(list.map(object=> day[new Date(object["dt_txt"].slice(0, 11)).getDay()]))];
+    const time =  list.map(object=> object["dt_txt"].slice(11));
+
+
+    const daysArray = [];
+    for (let i=0; i<5; i++){
+      daysArray.push({
+        times:time.splice(0,5),
+        day:dayIndex.splice(0,1),
+        weatherIcons:iconArray.splice(0,5),
+        Description:weatherDescrp.splice(0,5),
+        temperature:tempArray.splice(0,5),
+        humidity:humidityArray.splice(0,5)
+    }) ;
+    };
+    return daysArray;
+}
+
+
+};
 
 const randomNumber = (max)=>{
     return Math.round(Math.random()*max)
@@ -154,20 +160,19 @@ const randomNumber = (max)=>{
 
 
 
-
+// Post requests
 app.post("/api/search", async (req,res)=>{
 const location= req.body;
 const photoInfo= await getImage(location);
 const weather= await getWeather("weather",undefined, undefined, location.city);
 const forecast = await getForecast("forecast",undefined, undefined, location.city);
-console.log(forecast);
 res.json([photoInfo, weather, forecast])
 res.end()
 
 })
 
 app.post("/api/unsplashImages",  async (req,res)=>{
-      
+
     let    lat=req.body.lat;
     let  lng=req.body.lng;
         let geoData=`${lat},${lng}`;

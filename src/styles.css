@@ -13,9 +13,9 @@ body{
     align-items: center;
 }
 
-.container,.searchInput, 
-.weatherContainer, 
-.searchBar, 
+.container,.searchInput,
+.weatherContainer,
+.searchBar,
 .dayOfWeek,
 .dayForecast,
 .buttonContainer
@@ -41,30 +41,30 @@ z-index:2;
 
 .backgroundImg{
     height: 100vh;
-    background-repeat: no-repeat center center fixed; 
+    background-repeat: no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     font-family: 'Roboto', sans-serif;
     image-rendering: crisp-edges;
- image-rendering: -moz-crisp-edges;        
- image-rendering: -o-crisp-edges;           
- image-rendering: -webkit-optimize-contrast; 
- -ms-interpolation-mode: nearest-neighbor; 
+ image-rendering: -moz-crisp-edges;
+ image-rendering: -o-crisp-edges;
+ image-rendering: -webkit-optimize-contrast;
+ -ms-interpolation-mode: nearest-neighbor;
 }
 
 .container{
     flex-direction: column;
     justify-content: space-between;
-    gap:1rem;  
+    gap:1rem;
 }
 
 
 .searchBar{
     margin: 1rem 0 0 0;
     width: 90%;
-    
+
 }
 .searchBar, .searchButton{
     height: 2.5rem;
@@ -98,14 +98,14 @@ position: relative;
     background-color: white;
     opacity: 70%;
     border-radius: 5px;
-    width: 87%; 
+    width: 87%;
     padding: 1rem;
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
     height: fit-content;
-    
-    
+
+
 }
 
 .dummyImage{
@@ -117,7 +117,7 @@ position: relative;
 .dayForecast{
     flex-direction: row;
     gap:2.5rem;
-    width: cover;
+
     align-items:center;
     justify-content: space-around;
     padding: 0 1.5rem 0 1.5rem;
@@ -141,7 +141,7 @@ position: relative;
     padding: 0.5rem;
     align-self: inherit;
     position: relative;
-    
+
 }
 
 .creditCaption>*{
@@ -165,12 +165,12 @@ position: relative;
     padding: 0.2rem;
     height:24rem;
   }
-  
+
   .swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
-  
+
     /* Center slide text vertically */
     display: -webkit-box;
     display: -ms-flexbox;
@@ -188,14 +188,14 @@ position: relative;
     bottom:1rem;
 
   }
-  
+
   .swiper-slide img {
     display: block;
     width: cover;
     height: cover;
     object-fit: cover;
   }
-  
+
   .swiper-pagination-bullet {
     width: 20px;
     height: 20px;
@@ -206,7 +206,7 @@ position: relative;
     opacity: 1;
     background: rgba(0, 0, 0, 0.2);
   }
-  
+
   .swiper-pagination-bullet-active {
     color: #fff;
     background: #007aff;
@@ -262,11 +262,11 @@ position: relative;
 
   @media screen and (min-width:810px) {
     .container{
-        gap:2rem;  
+        gap:2rem;
     }
     .swiper{
         width:90%
-        
+
     }
     .creditCaption{
         padding:1rem;
@@ -325,7 +325,7 @@ position: relative;
     .borderBottom{
         width: 97%;
     }
-   
-   
+
+
 
   }

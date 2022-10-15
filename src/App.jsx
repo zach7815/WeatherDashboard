@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from "react";
+import React, {useState, useEffect} from "react";
 import SearchBar from "./components/SearchBar.jsx";
 import CurrentWeather from "./components/CurrentWeather.jsx";
 import CreditDetails from "./components/ImageCredit.jsx";
