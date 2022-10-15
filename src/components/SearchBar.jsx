@@ -1,20 +1,53 @@
-import React from "react";
+import React, {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 
 
+const SearchBar = ({setWeatherData, setForecastData, setImageData})=>{
+    const [query, setQuery]= useState("")
 
-const SearchBar = ()=>{
+    const  handleSubmit =  async (e)=>{
+        e.preventDefault();
+    
+        const requestOptions = {
+            method:'POST',
+           headers:{"Content-Type": "application/json"},
+            body: JSON.stringify({city:query})
+         }
+
+    if (!query){
+        alert("please enter a city");
+    }
+    else{
+        try{
+            const response =  await fetch('/api/search', requestOptions);
+            const result =  await response.json();
+           if(result[1]===null){
+            alert("city not recognised, please enter a valid city")
+           }
+           else{
+            setImageData(result[0]);
+            setWeatherData(result[1]);
+            setForecastData(result[2]);
+           }
+         }
+         catch(err){
+            console.log(err);
+         }
+    }
+        
+      setQuery("")
+       }
+  
+
     return (
         <div className="searchBarContainer">
-        <form className="searchInput" method="POST" >
-        <input type="search" className="searchBar" placeholder="Find Your City's Weather"></input>
-        <button type="submit" className="searchButton"><FontAwesomeIcon icon={faMagnifyingGlass}  disabled /></button>
+        <form className="searchInput" onSubmit={handleSubmit} >
+        <input type="search" className="searchBar" placeholder="Find Your City's Weather" onChange={(e)=>setQuery(e.target.value)} value={query} />
+        <button type="submit" className="searchButton"><FontAwesomeIcon icon={faMagnifyingGlass}/></button>
         </form>
         </div>
-       
-      
     )
 };
 

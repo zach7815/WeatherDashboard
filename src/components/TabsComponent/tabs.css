@@ -1,0 +1,53 @@
+
+@media screen and (min-width:1280px){
+  ul.nav {
+    width: 100%;
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+    justify-content: space-around;
+    padding-left: 0px;
+    @media (max-width: 768px) {
+      width: 90%;
+    }
+  }
+  
+  ul.nav li {
+    width: 30%;
+    padding: 1rem;
+    list-style: none;
+    text-align: center;
+    background-color:white;
+    opacity: 77%;;
+    cursor: pointer;
+  }
+  
+
+  
+  ul.nav li:hover {
+    background: gray;
+    color: white;
+  }
+  
+  ul.nav li.active {
+    background:#8D8D8D;
+    color:white;
+    opacity: 100%;
+  }
+  
+  /* Tab Content Styles */
+  .TabContent {
+    font-size: 1.15rem;
+   display: flex;
+   justify-content: center;
+  }
+
+
+ div.TabContent div.weatherContainer{
+    padding: 0;
+  }
+
+}
+
+
+  

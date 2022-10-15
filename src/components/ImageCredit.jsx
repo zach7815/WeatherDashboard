@@ -1,10 +1,27 @@
 import React from "react";
 
-const CreditDetails = ()=>{
+const CreditDetails = ({photographerDetails})=>{
+    let name;
+    let username;
+    let imageLink
+    if(!photographerDetails){
+        name= ` Benjamin Davies`
+        username=`bendavisual`
+        imageLink=`https://unsplash.com/photos/Oja2ty_9ZLM`
+
+    }
+    else{
+       const {unsplash_url,photographerInfo}= photographerDetails||"" 
+ name =photographerInfo["name"];
+username=photographerInfo["username"];
+ imageLink=unsplash_url["html"]
+    }
+
+   
     return (
         <div className="weatherContainer creditCaption">
-        <h4> <a href="www.unsplash.com">Author Name</a> </h4>
-        <p>See the  image on <a href="www.unsplash.com">Unsplash</a></p>
+        <h4>Image by:<a href={`https://unsplash.com/@${username}`}>{name}</a> </h4>
+        <p>See the  image on <a href={imageLink}>Unsplash</a></p>
 
         </div>
     )
