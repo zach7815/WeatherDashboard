@@ -34,7 +34,7 @@ useEffect(()=>{
 },[])
 
 //makes unsplashImage API call
-useFetch(location, "/api/unsplashImages", setUnsplashData)
+useFetch(location, "https://weather-dashboard-backend.onrender.com/api/unsplashImages", setUnsplashData)
 // handles background image setting
 useEffect(()=>{
 const bgImage=document.querySelector(".backgroundImg")
@@ -48,11 +48,11 @@ const bgImage=document.querySelector(".backgroundImg")
 },[unsplashData])
 
 // requests current weather Data
-useFetch(location, "/api/currentWeather", setCurrentWeather);
+useFetch(location, "https://weather-dashboard-backend.onrender.com/api/currentWeather", setCurrentWeather);
 
 
 // request five days of forecast
-useFetch(location,"/api/fiveDayForecast", setForecast)
+useFetch(location,"https://weather-dashboard-backend.onrender.com/api/fiveDayForecast", setForecast)
 
 
   return (
