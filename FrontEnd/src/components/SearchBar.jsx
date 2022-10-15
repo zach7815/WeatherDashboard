@@ -12,6 +12,7 @@ const SearchBar = ({setWeatherData, setForecastData, setImageData})=>{
     
         const requestOptions = {
             method:'POST',
+            mode:'cors',
            headers:{"Content-Type": "application/json"},
             body: JSON.stringify({city:query})
          }
