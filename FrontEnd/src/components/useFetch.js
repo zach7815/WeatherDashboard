@@ -1,11 +1,8 @@
 import {useEffect } from "react";
 
-// '/api/unsplashImages',
-
-
 
 const useFetch= async (location, url, setFunction)=>{
-    console.log(location)
+ console.log(url);
     useEffect(()=>{
      
 
