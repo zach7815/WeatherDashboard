@@ -24,11 +24,14 @@ const useFetch= async (location, url, setFunction)=>{
 
                 fetch(url,requestOptions)
                 .then(data=>{
+                    console.log(data);
                     if(data===null||undefined){
                         return
                     }
                     else{
-                        return data.json()
+                        let result= data.json()
+                        console.log(result)
+                        return result
                     }
                     })
                 .then(setFunction)
