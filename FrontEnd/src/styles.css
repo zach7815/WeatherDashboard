@@ -37,6 +37,7 @@ right:0;
 bottom:0;
 background-color: rgba(0,0,0,0.5);
 z-index:2;
+overflow: auto;
 }
 
 .backgroundImg{
@@ -116,7 +117,7 @@ position: relative;
 
 .dayForecast{
     flex-direction: row;
-    gap:2.5rem;
+    gap:2.125rem;
 
     align-items:center;
     justify-content: space-around;
@@ -168,7 +169,7 @@ position: relative;
 
   .swiper-slide {
     text-align: center;
-    font-size: 18px;
+    font-size: 1rem;
     background: #fff;
 
     /* Center slide text vertically */

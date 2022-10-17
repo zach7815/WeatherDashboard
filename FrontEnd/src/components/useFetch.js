@@ -2,9 +2,8 @@ import {useEffect } from "react";
 
 
 const useFetch= async (location, url, setFunction)=>{
- console.log(url);
     useEffect(()=>{
-     
+
 
         if(!location){
             console.log("location not granted");
@@ -21,21 +20,19 @@ const useFetch= async (location, url, setFunction)=>{
 
                 fetch(url,requestOptions)
                 .then(data=>{
-                    console.log(data);
                     if(data===null||undefined){
                         return
                     }
                     else{
                         let result= data.json()
-                        console.log(result)
                         return result
                     }
                     })
                 .then(setFunction)
                 .catch(error=>console.log(Error(error)));
-        }  
+        }
     },[location, url, setFunction])
-    
+
 }
 
 export default useFetch
