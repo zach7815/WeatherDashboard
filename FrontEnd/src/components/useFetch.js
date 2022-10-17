@@ -13,7 +13,7 @@ const useFetch= async (location, url, setFunction)=>{
             const {latitude:lat, longitude:lng}=location["coords"];
             const requestOptions = {
                 method:'POST',
-                 mode:'no-cors',
+                 mode:'cors',
                headers:{"Content-Type": "application/json"},
                 body: JSON.stringify({lat:lat, lng:lng})
              }
