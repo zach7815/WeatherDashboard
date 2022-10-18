@@ -1,6 +1,6 @@
-# Frontend Mentor - Fullstack Weather Dashboard
+ Fullstack Weather Dashboard
 
-A Fullstack web application using React JS for the front end with Node JS and Express JS for the backend.
+A Fullstack web application using React JS for the front end with Node JS and Express JS for the backend. For hosting reasons the project and front end files are hosted in different repos. See the likens section below to see them seperately or the full stack files. 
 
 ## Table of contents
 
@@ -35,10 +35,9 @@ There were quite a few challenges as this was my first fullstack application ind
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/zach7815/faq-accordian-FEM)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
-- Link to Backend files: [Add live site URL here](https://your-live-site-url.com)
-- Link to Fullstack files: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [Live Site](https://weather-dashboard.onrender.com/)
+- Link to Backend files: [Backend Repo](https://github.com/zach7815/WeatherDashboard-backend)
+- Link to Fullstack files: [Fullstack Repo](https://github.com/zach7815/WeatherDashboard-Frontend/tree/Fullstack)
 
 ## My process
 
