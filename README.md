@@ -1,6 +1,6 @@
  Fullstack Weather Dashboard
 
-A Fullstack web application using React JS for the front end with Node JS and Express JS for the backend. For hosting reasons the project and front end files are hosted in different repos. See the likens section below to see them seperately or the full stack files. 
+A Fullstack web application using React JS for the front end with Node JS and Express JS for the backend. For hosting reasons the project's most updated branches are hosted in a front end and back end repos. See the links section below to see them seperately or see the last push of the full stack repo below. 
 
 ## Table of contents
 
