@@ -6,18 +6,12 @@ import SwiperFunction from "./components/DailyForecast/SwiperPagination.jsx";
 import LocalDateAndTime from "./components/LocalTime.jsx";
 import Tabs from "./components/TabsComponent/Tabs.jsx";
 import "./styles.css"
-import useFetch from "./components/useFetch.js";
+// import useFetch from "./components/useFetch.js";
+// import FiveDayForecast from "./components/DailyForecast/FiveDayWeather.jsx";
 
 
 
-const getLocationPromise = ()=>{
-  return new Promise(function(resolve,reject){
-    navigator.geolocation.getCurrentPosition(
-      position=>resolve(position),
-      error=>reject(error)
-    )
-  })
-  }
+
 
 
 
@@ -26,49 +20,97 @@ function App() {
   const [currentWeather,setCurrentWeather]=useState();
   const [location, setLocation]=useState();
   const [unsplashData, setUnsplashData]=useState();
+  const [loading,setLoading]=useState(false)
+
+
+  const getLocationPromise = ()=>{
+    return new Promise(function(resolve,reject){
+      navigator.geolocation.getCurrentPosition(
+        position=>resolve(position),
+        error=>reject(error)
+      )
+    })
+    }
+
+
+
 
 // requests users current location
 useEffect(()=>{
+  setLoading(true)
   getLocationPromise()
-  .then(setLocation)
-},[])
+  .then(setLocation(location))
+  .then((location)=>{
+    const {latitude:lat, longitude:lng}=location["coords"];
+    const requestOptions = {
+        method:'POST',
+         mode:'cors',
+       headers:{"Content-Type": "application/json"},
+        body: JSON.stringify({lat:lat, lng:lng})
+     }
+     Promise.all([
+      fetch("https://weather-dashboard-backend.onrender.com/api/currentWeather",requestOptions),
+      fetch("https://weather-dashboard-backend.onrender.com/api/unsplashImages",requestOptions),
+      fetch("https://weather-dashboard-backend.onrender.com/api/fiveDayForecast",requestOptions),
+       ])
+     .then((results)=>{
+     return Promise.all(results.map(r=>r.json()))
+     })
+     .then((dataArray)=>{
+        setCurrentWeather(dataArray[0]);
+        setUnsplashData(dataArray[1]);
+        setForecast(dataArray[2]);
+        setLoading(false);
+     }).catch(error=>{console.log(error)})
+})
+},[location])
 
-//makes unsplashImage API call
-useFetch(location, "https://weather-dashboard-backend.onrender.com/api/unsplashImages", setUnsplashData)
-// handles background image setting
+
 useEffect(()=>{
 const bgImage=document.querySelector(".backgroundImg")
 
   if(!unsplashData){
-    bgImage.style.backgroundImage='url("https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80")';
+return
   }
   else{
  bgImage.style.backgroundImage=`url(${unsplashData["display_urls"]["full"]})`;
   }
 },[unsplashData])
 
-// requests current weather Data
-useFetch(location, "https://weather-dashboard-backend.onrender.com/api/currentWeather", setCurrentWeather);
-
-
-// request five days of forecast
-useFetch(location,"https://weather-dashboard-backend.onrender.com/api/fiveDayForecast", setForecast)
-
+if(loading===true){
+  return(
+    <div className="loader-container">
+    <div className="spinner"></div>
+  </div>
+  )
+}
+else{
 
   return (
-    <div className="backgroundImg">
-    <div className="imageOverlay">
- <div className="container">
-<SearchBar setWeatherData={setCurrentWeather} setForecastData={setForecast} setImageData={setUnsplashData}/>
-<LocalDateAndTime />
-<CurrentWeather currentWeather={currentWeather}/>
-<SwiperFunction forecasts={forecast} />
-<Tabs forecasts={forecast} />
-<CreditDetails photographerDetails={unsplashData} />
-</div>
- </div>
- </div>
+    <>
+    {loading?(<div className="loader-container">
+      	  <div className="spinner"></div>
+        </div>):(
+                    <div className="backgroundImg">
+              <div className="imageOverlay">
+          <div className="container">
+          <SearchBar setWeatherData={setCurrentWeather} setForecastData={setForecast} setImageData={setUnsplashData}/>
+          <LocalDateAndTime />
+          <CurrentWeather currentWeather={currentWeather}/>
+          <SwiperFunction forecasts={forecast} />
+          <Tabs forecasts={forecast} />
+          <CreditDetails photographerDetails={unsplashData} />
+          </div>
+          </div>
+          </div>
+
+        )}
+
+
+
+ </>
   );
+}
 }
 
 export default App;
