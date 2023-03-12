@@ -6,12 +6,7 @@ import SwiperFunction from "./components/DailyForecast/SwiperPagination.jsx";
 import LocalDateAndTime from "./components/LocalTime.jsx";
 import Tabs from "./components/TabsComponent/Tabs.jsx";
 import "./styles.css"
-// import useFetch from "./components/useFetch.js";
-// import FiveDayForecast from "./components/DailyForecast/FiveDayWeather.jsx";
-
-
-
-
+import { getLocationPromise, CallAPIs } from "./components/APIRequests.js";
 
 
 
@@ -22,48 +17,16 @@ function App() {
   const [unsplashData, setUnsplashData]=useState();
   const [loading,setLoading]=useState(false)
 
-
-  const getLocationPromise = ()=>{
-    return new Promise(function(resolve,reject){
-      navigator.geolocation.getCurrentPosition(
-        position=>resolve(position),
-        error=>reject(error)
-      )
-    })
-    }
+const urlArray=["https://weather-dashboard-backend.onrender.com/api/currentWeather",
+                "https://weather-dashboard-backend.onrender.com/api/unsplashImages",
+                "https://weather-dashboard-backend.onrender.com/api/fiveDayForecast"
+              ]
+   const setFunctArray=[setLoading, setLocation, setCurrentWeather,setUnsplashData,setForecast]
 
 
+CallAPIs(urlArray, setFunctArray, getLocationPromise, location )
 
 
-// requests users current location
-useEffect(()=>{
-  setLoading(true)
-  getLocationPromise()
-  .then(setLocation(location))
-  .then((location)=>{
-    const {latitude:lat, longitude:lng}=location["coords"];
-    const requestOptions = {
-        method:'POST',
-         mode:'cors',
-       headers:{"Content-Type": "application/json"},
-        body: JSON.stringify({lat:lat, lng:lng})
-     }
-     Promise.all([
-      fetch("https://weather-dashboard-backend.onrender.com/api/currentWeather",requestOptions),
-      fetch("https://weather-dashboard-backend.onrender.com/api/unsplashImages",requestOptions),
-      fetch("https://weather-dashboard-backend.onrender.com/api/fiveDayForecast",requestOptions),
-       ])
-     .then((results)=>{
-     return Promise.all(results.map(r=>r.json()))
-     })
-     .then((dataArray)=>{
-        setCurrentWeather(dataArray[0]);
-        setUnsplashData(dataArray[1]);
-        setForecast(dataArray[2]);
-        setLoading(false);
-     }).catch(error=>{console.log(error)})
-})
-},[location])
 
 
 useEffect(()=>{
